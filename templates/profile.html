@@ -1,0 +1,197 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="py-4">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0" data-i18n="nav_profile">Profile</h1>
+        </div>
+        
+        <!-- Profile Header -->
+        <div class="profile-header d-flex align-items-center mb-4">
+            <div class="profile-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div>
+                <h3 class="mb-1">{{ current_user.first_name }} {{ current_user.last_name }}</h3>
+                <p class="mb-2 text-muted">{{ current_user.organization }}</p>
+                <div class="d-flex align-items-center">
+                    <span class="badge bg-primary me-2">{{ current_user.role.replace('_', ' ').title() }}</span>
+                    <span class="text-muted small"><i class="fas fa-envelope me-1"></i> {{ current_user.email }}</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <!-- Profile Information -->
+            <div class="col-lg-4 mb-4">
+                <div class="card bg-card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Account Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item bg-transparent border-bottom border-secondary d-flex justify-content-between align-items-center">
+                                <span class="text-muted">Username</span>
+                                <span>{{ current_user.username }}</span>
+                            </li>
+                            <li class="list-group-item bg-transparent border-bottom border-secondary d-flex justify-content-between align-items-center">
+                                <span class="text-muted">Email</span>
+                                <span>{{ current_user.email }}</span>
+                            </li>
+                            <li class="list-group-item bg-transparent border-bottom border-secondary d-flex justify-content-between align-items-center">
+                                <span class="text-muted">Role</span>
+                                <span>{{ current_user.role.replace('_', ' ').title() }}</span>
+                            </li>
+                            <li class="list-group-item bg-transparent border-bottom border-secondary d-flex justify-content-between align-items-center">
+                                <span class="text-muted">Organization</span>
+                                <span>{{ current_user.organization }}</span>
+                            </li>
+                            <li class="list-group-item bg-transparent border-bottom border-secondary d-flex justify-content-between align-items-center">
+                                <span class="text-muted">Member Since</span>
+                                <span>{{ current_user.created_at.strftime('%b %d, %Y') }}</span>
+                            </li>
+                            <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center">
+                                <span class="text-muted">Last Login</span>
+                                <span>{{ current_user.last_login.strftime('%b %d, %Y, %H:%M') if current_user.last_login else 'N/A' }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary w-100" disabled>
+                            <i class="fas fa-edit me-1"></i> Edit Profile
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card bg-card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Preferences</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Language</label>
+                            <div class="d-flex">
+                                <a href="{{ url_for('set_language', language='en') }}" class="btn btn-sm {% if current_user.language_preference == 'en' %}btn-primary{% else %}btn-outline-light{% endif %} me-2">
+                                    English
+                                </a>
+                                <a href="{{ url_for('set_language', language='ar') }}" class="btn btn-sm {% if current_user.language_preference == 'ar' %}btn-primary{% else %}btn-outline-light{% endif %}">
+                                    العربية
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Notification Preferences</label>
+                            <div class="form-check form-switch mb-2">
+                                <input class="form-check-input" type="checkbox" id="emailNotifications" checked disabled>
+                                <label class="form-check-label" for="emailNotifications">Email Notifications</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="reportAlerts" checked disabled>
+                                <label class="form-check-label" for="reportAlerts">Report Alerts</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Activity -->
+            <div class="col-lg-8">
+                <div class="card bg-card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Recent Queries</h5>
+                        <span class="badge bg-primary">{{ recent_queries|length }} Queries</span>
+                    </div>
+                    <div class="card-body">
+                        {% if recent_queries %}
+                            <div class="list-group list-group-flush">
+                                {% for query in recent_queries %}
+                                    <div class="list-group-item bg-transparent border-bottom border-secondary py-3">
+                                        <div class="d-flex">
+                                            <div class="bg-info bg-opacity-10 p-2 rounded-3 me-3">
+                                                {% if query.category == 'strategic_advisor' %}
+                                                    <i class="fas fa-chess-knight fs-4 text-info"></i>
+                                                {% elif query.category == 'guidance_system' %}
+                                                    <i class="fas fa-compass fs-4 text-info"></i>
+                                                {% else %}
+                                                    <i class="fas fa-question-circle fs-4 text-info"></i>
+                                                {% endif %}
+                                            </div>
+                                            <div>
+                                                <p class="mb-1">{{ query.text }}</p>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="badge bg-secondary me-2">{{ query.category.replace('_', ' ').title() }}</span>
+                                                    <small class="text-muted">{{ query.timestamp.strftime('%b %d, %Y, %H:%M') }}</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="text-center py-4">
+                                <i class="fas fa-comment-slash fs-1 text-muted mb-3"></i>
+                                <p class="mb-0">You haven't made any queries yet.</p>
+                                <div class="mt-3">
+                                    <a href="{{ url_for('strategic_advisor') }}" class="btn btn-sm btn-outline-primary me-2">Ask Strategic Advisor</a>
+                                    <a href="{{ url_for('guidance_system') }}" class="btn btn-sm btn-outline-primary">Use Guidance System</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="card bg-card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">My Reports</h5>
+                        <a href="{{ url_for('report_generator') }}" class="btn btn-sm btn-primary">
+                            <i class="fas fa-plus me-1"></i> New Report
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        {% if recent_reports %}
+                            <div class="table-responsive">
+                                <table class="table table-dark table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Category</th>
+                                            <th>Created</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for report in recent_reports %}
+                                            <tr>
+                                                <td>{{ report.title }}</td>
+                                                <td><span class="badge bg-secondary">{{ report.category.replace('_', ' ').title() }}</span></td>
+                                                <td>{{ report.created_at.strftime('%b %d, %Y') }}</td>
+                                                <td>
+                                                    <a href="{{ url_for('view_report', report_id=report.id) }}" class="btn btn-sm btn-outline-primary">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <div class="text-center py-4">
+                                <i class="fas fa-file-alt fs-1 text-muted mb-3"></i>
+                                <p class="mb-0">You haven't generated any reports yet.</p>
+                                <div class="mt-3">
+                                    <a href="{{ url_for('report_generator') }}" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-plus me-1"></i> Generate Report
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="py-4">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0">Search Results</h1>
+            <a href="{{ url_for('search') }}" class="btn btn-outline-light">
+                <i class="fas fa-search me-2"></i> New Search
+            </a>
+        </div>
+        
+        <div class="card bg-card mb-4">
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('search') }}" id="searchForm">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="input-group">
+                        {% if form.search_query.errors %}
+                            {{ form.search_query(class="form-control is-invalid", placeholder="Search the knowledge base...", value=query) }}
+                            <button class="btn btn-primary" type="submit" data-i18n="btn_search">Search</button>
+                            <div class="invalid-feedback">
+                                {% for error in form.search_query.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.search_query(class="form-control", placeholder="Search the knowledge base...", value=query) }}
+                            <button class="btn btn-primary" type="submit" data-i18n="btn_search">Search</button>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Search Results -->
+        <div class="card bg-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Results for "{{ query }}"</h5>
+                <span class="badge bg-primary">{{ results|length }} results</span>
+            </div>
+            <div class="card-body">
+                {% if results %}
+                    {% for result in results %}
+                        <div class="search-result">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="mb-0">{{ result.title }}</h5>
+                                <span class="search-score">{{ result.score }}% match</span>
+                            </div>
+                            <p class="mb-2">{{ result.content }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-secondary">{{ result.category.replace('_', ' ').title() }}</span>
+                                <button class="btn btn-sm btn-outline-primary view-full-content" data-id="{{ result.id }}">
+                                    View Full Content
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-search fs-1 text-muted mb-3"></i>
+                        <h5>No results found for "{{ query }}"</h5>
+                        <p class="mb-4">Try adjusting your search terms or browse the knowledge base categories.</p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <a href="{{ url_for('search') }}" class="btn btn-outline-light">
+                                <i class="fas fa-search me-2"></i> New Search
+                            </a>
+                            <a href="{{ url_for('knowledge_base') }}" class="btn btn-outline-light">
+                                <i class="fas fa-database me-2"></i> Browse Knowledge Base
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        {% if results %}
+            <div class="modal fade" id="contentModal" tabindex="-1" aria-labelledby="contentModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content bg-card">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="contentModalLabel">Full Content</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="modalContent">
+                            <!-- Content will be loaded here -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle view full content buttons
+        const viewButtons = document.querySelectorAll('.view-full-content');
+        const contentModal = new bootstrap.Modal(document.getElementById('contentModal'));
+        const modalContent = document.getElementById('modalContent');
+        const modalTitle = document.getElementById('contentModalLabel');
+        
+        viewButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const resultId = this.dataset.id;
+                
+                // In a real application, you would fetch the full content from the server
+                // For now, we'll just display a placeholder message
+                modalTitle.textContent = this.closest('.search-result').querySelector('h5').textContent;
+                modalContent.innerHTML = `
+                    <div class="text-center py-3">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Loading content for ID: ${resultId}...</p>
+                    </div>
+                `;
+                
+                contentModal.show();
+                
+                // Simulate loading the content
+                setTimeout(() => {
+                    const resultContent = this.closest('.search-result').querySelector('p').textContent;
+                    modalContent.innerHTML = `
+                        <div class="p-3">
+                            <p>${resultContent}</p>
+                            <p>This is the full content of the knowledge base entry. In a real application, this would contain more detailed information about the topic.</p>
+                            <p>The Saudi gaming and esports industry is growing rapidly, with government support through Vision 2030 initiatives and significant investments by entities like the Savvy Games Group.</p>
+                        </div>
+                    `;
+                }, 1000);
+            });
+        });
+    });
+</script>
+{% endblock %}
+
+{% endblock %}

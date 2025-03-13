@@ -1,0 +1,207 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="py-4">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0" data-i18n="dashboard_title">Dashboard</h1>
+            <a href="{{ url_for('search') }}" class="btn btn-primary">
+                <i class="fas fa-search me-2"></i> <span data-i18n="btn_search">Search</span>
+            </a>
+        </div>
+        
+        <div class="card bg-card mb-4">
+            <div class="card-body">
+                <h4 class="mb-0" data-i18n="dashboard_welcome">Welcome to the Saudi Gaming & Esports Industry Brain</h4>
+            </div>
+        </div>
+        
+        <!-- Industry Summary Section -->
+        <div class="card bg-card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0" data-i18n="dashboard_summary">Industry Summary</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="dashboard-stat">
+                            <h3>$6.8B</h3>
+                            <p class="text-muted mb-0">Market Size</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="dashboard-stat">
+                            <h3>21.1M</h3>
+                            <p class="text-muted mb-0">Saudi Gamers</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="dashboard-stat">
+                            <h3>23%</h3>
+                            <p class="text-muted mb-0">Annual Growth</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h6 class="mb-3">Revenue Trend</h6>
+                        <div class="chart-container">
+                            <canvas id="revenueTrendChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="mb-3">User Demographics</h6>
+                        <div class="chart-container">
+                            <canvas id="userDemographicsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Market Data Section -->
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <div class="card bg-card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0" data-i18n="dashboard_market_data">Market Data</h5>
+                        <select class="form-select form-select-sm w-auto" id="gamePreferenceSelect">
+                            <option value="platform">Platform Preferences</option>
+                            <option value="genre">Game Genres</option>
+                            <option value="spending">Spending Habits</option>
+                        </select>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="gamePreferencesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card bg-card h-100">
+                    <div class="card-header">
+                        <h5 class="mb-0" data-i18n="dashboard_upcoming_events">Upcoming Events</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if upcoming_events %}
+                            <div class="list-group list-group-flush">
+                                {% for event in upcoming_events %}
+                                    <div class="list-group-item bg-transparent border-bottom border-secondary py-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-primary bg-opacity-10 p-2 rounded-3 me-3">
+                                                <i class="fas fa-calendar-day fs-4 text-primary"></i>
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-1">{{ event.name }}</h6>
+                                                <p class="small text-muted mb-0">
+                                                    <i class="far fa-clock me-1"></i> {{ event.start_date.strftime('%b %d, %Y') }}
+                                                    <br>
+                                                    <i class="fas fa-map-marker-alt me-1"></i> {{ event.location }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="text-center py-4">
+                                <i class="fas fa-calendar-times fs-1 text-muted mb-3"></i>
+                                <p class="mb-0">No upcoming events found.</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Queries and Reports Section -->
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card bg-card mb-4 mb-md-0">
+                    <div class="card-header">
+                        <h5 class="mb-0" data-i18n="dashboard_recent_queries">Your Recent Queries</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if recent_queries %}
+                            <div class="list-group list-group-flush">
+                                {% for query in recent_queries %}
+                                    <div class="list-group-item bg-transparent border-bottom border-secondary py-3">
+                                        <div class="d-flex">
+                                            <div class="bg-info bg-opacity-10 p-2 rounded-3 me-3">
+                                                {% if query.category == 'strategic_advisor' %}
+                                                    <i class="fas fa-chess-knight fs-4 text-info"></i>
+                                                {% elif query.category == 'guidance_system' %}
+                                                    <i class="fas fa-compass fs-4 text-info"></i>
+                                                {% else %}
+                                                    <i class="fas fa-question-circle fs-4 text-info"></i>
+                                                {% endif %}
+                                            </div>
+                                            <div>
+                                                <p class="mb-1">{{ query.text }}</p>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="badge bg-secondary me-2">{{ query.category.replace('_', ' ').title() }}</span>
+                                                    <small class="text-muted">{{ query.timestamp.strftime('%b %d, %Y, %H:%M') }}</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="text-center py-4">
+                                <i class="fas fa-comment-slash fs-1 text-muted mb-3"></i>
+                                <p class="mb-0">You haven't made any queries yet.</p>
+                                <div class="mt-3">
+                                    <a href="{{ url_for('strategic_advisor') }}" class="btn btn-sm btn-outline-primary me-2">Ask Strategic Advisor</a>
+                                    <a href="{{ url_for('guidance_system') }}" class="btn btn-sm btn-outline-primary">Use Guidance System</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card bg-card">
+                    <div class="card-header">
+                        <h5 class="mb-0" data-i18n="dashboard_reports">Your Reports</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if user_reports %}
+                            <div class="list-group list-group-flush">
+                                {% for report in user_reports %}
+                                    <div class="list-group-item bg-transparent border-bottom border-secondary py-3">
+                                        <h6 class="mb-1">{{ report.title }}</h6>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="badge bg-secondary">{{ report.category.replace('_', ' ').title() }}</span>
+                                            <small class="text-muted">{{ report.created_at.strftime('%b %d, %Y') }}</small>
+                                        </div>
+                                        <div class="mt-2">
+                                            <a href="{{ url_for('view_report', report_id=report.id) }}" class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-eye me-1"></i> <span data-i18n="btn_view">View</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="text-center py-4">
+                                <i class="fas fa-file-alt fs-1 text-muted mb-3"></i>
+                                <p class="mb-0">You haven't generated any reports yet.</p>
+                                <div class="mt-3">
+                                    <a href="{{ url_for('report_generator') }}" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-plus me-1"></i> Generate Report
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

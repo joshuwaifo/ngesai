@@ -1,0 +1,167 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="py-4">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0" data-i18n="advisor_title">Strategic Advisor</h1>
+        </div>
+        
+        <div class="card bg-card mb-4">
+            <div class="card-body">
+                <p class="mb-0" data-i18n="advisor_intro">Get strategic recommendations and insights tailored to your needs across the Saudi gaming and esports landscape.</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-4 order-lg-2 mb-4">
+                <div class="card bg-card h-100">
+                    <div class="card-header">
+                        <h5 class="mb-0" data-i18n="advisor_suggestions">Suggested Topics</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group list-group-flush">
+                            <button class="list-group-item list-group-item-action bg-transparent border-bottom border-secondary py-3 suggestion-btn" data-query="What sponsorship opportunities exist in Saudi esports?">
+                                <div class="d-flex">
+                                    <div class="bg-primary bg-opacity-10 p-2 rounded-3 me-3">
+                                        <i class="fas fa-handshake fs-4 text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1" data-i18n="advisor_sponsorship">Sponsorship Strategy</h6>
+                                        <p class="small text-muted mb-0">Effective sponsorship models and activation strategies</p>
+                                    </div>
+                                </div>
+                            </button>
+                            
+                            <button class="list-group-item list-group-item-action bg-transparent border-bottom border-secondary py-3 suggestion-btn" data-query="What are the best investment opportunities in Saudi gaming?">
+                                <div class="d-flex">
+                                    <div class="bg-success bg-opacity-10 p-2 rounded-3 me-3">
+                                        <i class="fas fa-chart-line fs-4 text-success"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1" data-i18n="advisor_investment">Investment Opportunities</h6>
+                                        <p class="small text-muted mb-0">High-potential areas and risk assessment</p>
+                                    </div>
+                                </div>
+                            </button>
+                            
+                            <button class="list-group-item list-group-item-action bg-transparent border-bottom border-secondary py-3 suggestion-btn" data-query="How should I develop a competitive esports team in Saudi Arabia?">
+                                <div class="d-flex">
+                                    <div class="bg-info bg-opacity-10 p-2 rounded-3 me-3">
+                                        <i class="fas fa-users fs-4 text-info"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1" data-i18n="advisor_team_development">Esports Team Development</h6>
+                                        <p class="small text-muted mb-0">Team structure and player development frameworks</p>
+                                    </div>
+                                </div>
+                            </button>
+                            
+                            <button class="list-group-item list-group-item-action bg-transparent border-bottom border-secondary py-3 suggestion-btn" data-query="What are the key considerations for localizing games for the Saudi market?">
+                                <div class="d-flex">
+                                    <div class="bg-warning bg-opacity-10 p-2 rounded-3 me-3">
+                                        <i class="fas fa-globe fs-4 text-warning"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1" data-i18n="advisor_localization">Game Localization</h6>
+                                        <p class="small text-muted mb-0">Cultural considerations and technical requirements</p>
+                                    </div>
+                                </div>
+                            </button>
+                            
+                            <button class="list-group-item list-group-item-action bg-transparent py-3 suggestion-btn" data-query="What infrastructure is needed for professional esports in Saudi Arabia?">
+                                <div class="d-flex">
+                                    <div class="bg-danger bg-opacity-10 p-2 rounded-3 me-3">
+                                        <i class="fas fa-building fs-4 text-danger"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1" data-i18n="advisor_infrastructure">Esports Infrastructure</h6>
+                                        <p class="small text-muted mb-0">Venue requirements and development phases</p>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-8 order-lg-1">
+                <div class="card bg-card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Ask the Strategic Advisor</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{{ url_for('strategic_advisor') }}" id="queryForm">
+                            {{ form.hidden_tag() }}
+                            
+                            <div class="mb-3">
+                                {{ form.query_text.label(class="form-label", data_i18n="form_query") }}
+                                {% if form.query_text.errors %}
+                                    {{ form.query_text(class="form-control is-invalid", rows=3, placeholder="E.g., What sponsorship opportunities exist in Saudi esports?", data_i18n_placeholder="advisor_query_placeholder") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.query_text.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.query_text(class="form-control", rows=3, placeholder="E.g., What sponsorship opportunities exist in Saudi esports?", data_i18n_placeholder="advisor_query_placeholder") }}
+                                {% endif %}
+                                <div class="form-text">Be specific in your question to get the most relevant recommendations.</div>
+                            </div>
+                            
+                            <div class="d-grid">
+                                {{ form.submit(class="btn btn-primary", data_i18n="btn_submit") }}
+                            </div>
+                        </form>
+                        
+                        <!-- Loading Placeholder -->
+                        <div id="loadingPlaceholder" class="mt-4"></div>
+                        
+                        {% if query and response %}
+                            <div class="query-response mt-4" id="responseSection">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <h5>Response</h5>
+                                    <button class="btn btn-sm btn-outline-light copy-response" data-target="responseText">
+                                        <i class="fas fa-copy me-1"></i> Copy
+                                    </button>
+                                </div>
+                                <div class="border-start border-4 border-primary ps-3">
+                                    <p class="text-muted mb-3">Query: {{ query }}</p>
+                                </div>
+                                <div id="responseText">{{ response|safe|nl2br }}</div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle suggestion buttons
+        const suggestionBtns = document.querySelectorAll('.suggestion-btn');
+        const queryInput = document.getElementById('query_text');
+        
+        suggestionBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const queryText = this.dataset.query;
+                queryInput.value = queryText;
+                queryInput.focus();
+                // Smooth scroll to query form
+                document.getElementById('queryForm').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        
+        // Show loading indicator when form is submitted
+        const form = document.getElementById('queryForm');
+        form.addEventListener('submit', function() {
+            showLoading('Analyzing your query and preparing recommendations...');
+        });
+    });
+</script>
+{% endblock %}
+
+{% endblock %}

@@ -1,0 +1,367 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container hero-content">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <h1 class="display-4 fw-bold mb-4">Saudi Gaming & Esports <span class="text-gradient">Industry Brain</span></h1>
+                <p class="lead mb-4">A comprehensive knowledge hub, strategic advisor, and guidance system for the Saudi Arabian gaming and esports ecosystem.</p>
+                <p class="mb-5">Supporting the growth and development of the industry in alignment with Vision 2030.</p>
+                <div class="d-flex gap-3">
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-lg">Go to Dashboard</a>
+                    {% else %}
+                    <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">Get Started</a>
+                    <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg">Login</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="text-center">
+                    <div class="d-flex justify-content-center mb-4">
+                        <svg width="400" height="300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+                            <!-- Abstract Gaming Brain Visualization -->
+                            <defs>
+                                <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1e88e5" />
+                                    <stop offset="100%" stop-color="#6a3de8" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M200,50 C280,50 350,120 350,200 C350,280 280,350 200,350 C120,350 50,280 50,200 C50,120 120,50 200,50 Z" fill="none" stroke="url(#heroGradient)" stroke-width="3" opacity="0.6" />
+                            <path d="M200,100 C250,100 290,140 290,190 C290,240 250,280 200,280 C150,280 110,240 110,190 C110,140 150,100 200,100 Z" fill="none" stroke="url(#heroGradient)" stroke-width="2" opacity="0.7" />
+                            
+                            <!-- Brain Nodes -->
+                            <circle cx="200" cy="150" r="15" fill="url(#heroGradient)" />
+                            <circle cx="240" cy="180" r="10" fill="url(#heroGradient)" />
+                            <circle cx="270" cy="220" r="12" fill="url(#heroGradient)" />
+                            <circle cx="220" cy="240" r="8" fill="url(#heroGradient)" />
+                            <circle cx="160" cy="230" r="11" fill="url(#heroGradient)" />
+                            <circle cx="130" cy="190" r="9" fill="url(#heroGradient)" />
+                            <circle cx="150" cy="150" r="13" fill="url(#heroGradient)" />
+                            <circle cx="190" cy="110" r="7" fill="url(#heroGradient)" />
+                            
+                            <!-- Connection Lines -->
+                            <line x1="200" y1="150" x2="240" y2="180" stroke="url(#heroGradient)" stroke-width="2" />
+                            <line x1="240" y1="180" x2="270" y2="220" stroke="url(#heroGradient)" stroke-width="2" />
+                            <line x1="270" y1="220" x2="220" y2="240" stroke="url(#heroGradient)" stroke-width="2" />
+                            <line x1="220" y1="240" x2="160" y2="230" stroke="url(#heroGradient)" stroke-width="2" />
+                            <line x1="160" y1="230" x2="130" y2="190" stroke="url(#heroGradient)" stroke-width="2" />
+                            <line x1="130" y1="190" x2="150" y2="150" stroke="url(#heroGradient)" stroke-width="2" />
+                            <line x1="150" y1="150" x2="200" y2="150" stroke="url(#heroGradient)" stroke-width="2" />
+                            <line x1="200" y1="150" x2="190" y2="110" stroke="url(#heroGradient)" stroke-width="2" />
+                            <line x1="190" y1="110" x2="150" y2="150" stroke="url(#heroGradient)" stroke-width="2" />
+                            
+                            <!-- Gaming Icons -->
+                            <path d="M185,145 L185,155 L175,155 L175,165 L165,165 L165,155 L155,155 L155,145 L165,145 L165,135 L175,135 L175,145 Z" fill="#ffffff" />
+                            <circle cx="240" cy="180" r="3" fill="#ffffff" />
+                            <circle cx="250" cy="175" r="3" fill="#ffffff" />
+                            <circle cx="250" cy="185" r="3" fill="#ffffff" />
+                            <circle cx="260" cy="180" r="3" fill="#ffffff" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Key Features Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Key Features</h2>
+            <p class="lead text-muted">Empowering the Saudi gaming and esports ecosystem</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="h4 mb-3">Knowledge Base</h3>
+                    <p class="text-muted">A constantly updated repository of information on all aspects of the Saudi gaming and esports industry.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-chess-knight"></i>
+                    </div>
+                    <h3 class="h4 mb-3">Strategic Advisor</h3>
+                    <p class="text-muted">Provides strategic recommendations and insights on key topics like sponsorships, team development, and investment opportunities.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-compass"></i>
+                    </div>
+                    <h3 class="h4 mb-3">Guidance System</h3>
+                    <p class="text-muted">Offers step-by-step guidance and best practices for various stakeholders in the gaming and esports ecosystem.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="h4 mb-3">Trend Forecaster</h3>
+                    <p class="text-muted">Predicts emerging trends and opportunities in the Saudi gaming and esports market.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3 class="h4 mb-3">Report Generator</h3>
+                    <p class="text-muted">Generates customized reports and presentations for various stakeholders.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 class="h4 mb-3">Ecosystem Connector</h3>
+                    <p class="text-muted">Connects stakeholders within the Saudi gaming and esports ecosystem, facilitating collaboration and knowledge sharing.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Vision 2030 Alignment Section -->
+<section class="py-5 bg-dark">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h2 class="fw-bold mb-4">Alignment with Vision 2030</h2>
+                <p class="mb-4">The Saudi Gaming & Esports Industry Brain is designed to support the growth and development of the Saudi gaming and esports industry in alignment with Vision 2030's goals for economic diversification, digital transformation, and youth development.</p>
+                
+                <div class="d-flex mb-3 align-items-center">
+                    <div class="me-3">
+                        <i class="fas fa-check-circle text-success fs-4"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Economic Diversification</h5>
+                        <p class="text-muted mb-0">Supporting the growth of the gaming and esports sector as a key component of the digital economy.</p>
+                    </div>
+                </div>
+                
+                <div class="d-flex mb-3 align-items-center">
+                    <div class="me-3">
+                        <i class="fas fa-check-circle text-success fs-4"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Youth Empowerment</h5>
+                        <p class="text-muted mb-0">Providing opportunities for Saudi youth to develop skills and careers in the gaming and esports industry.</p>
+                    </div>
+                </div>
+                
+                <div class="d-flex mb-3 align-items-center">
+                    <div class="me-3">
+                        <i class="fas fa-check-circle text-success fs-4"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0">Digital Transformation</h5>
+                        <p class="text-muted mb-0">Accelerating the digital transformation of the Saudi economy through the gaming and esports sector.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="p-4 bg-card rounded-4">
+                    <h4 class="mb-4">Strategic Objectives</h4>
+                    
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Local Game Development</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="progress" style="height: 10px;">
+                            <div class="progress-bar bg-gradient" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Esports Team Development</span>
+                            <span>60%</span>
+                        </div>
+                        <div class="progress" style="height: 10px;">
+                            <div class="progress-bar bg-gradient" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Gaming Infrastructure</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress" style="height: 10px;">
+                            <div class="progress-bar bg-gradient" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Talent Development</span>
+                            <span>50%</span>
+                        </div>
+                        <div class="progress" style="height: 10px;">
+                            <div class="progress-bar bg-gradient" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>International Competitiveness</span>
+                            <span>65%</span>
+                        </div>
+                        <div class="progress" style="height: 10px;">
+                            <div class="progress-bar bg-gradient" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Target Audience Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Who We Serve</h2>
+            <p class="lead text-muted">Empowering all stakeholders in the Saudi gaming and esports ecosystem</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-3 col-sm-6">
+                <div class="card bg-card h-100">
+                    <div class="card-body text-center">
+                        <div class="mb-3 fs-1 text-gradient">
+                            <i class="fas fa-landmark"></i>
+                        </div>
+                        <h5 class="card-title">Government Entities</h5>
+                        <p class="card-text text-muted">Ministries, authorities, and government initiatives focused on gaming and esports development.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6">
+                <div class="card bg-card h-100">
+                    <div class="card-body text-center">
+                        <div class="mb-3 fs-1 text-gradient">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <h5 class="card-title">Investors</h5>
+                        <p class="card-text text-muted">Venture capital firms, private equity, and individual investors interested in the gaming sector.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6">
+                <div class="card bg-card h-100">
+                    <div class="card-body text-center">
+                        <div class="mb-3 fs-1 text-gradient">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <h5 class="card-title">Game Developers</h5>
+                        <p class="card-text text-muted">Local and international game development studios targeting the Saudi market.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6">
+                <div class="card bg-card h-100">
+                    <div class="card-body text-center">
+                        <div class="mb-3 fs-1 text-gradient">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h5 class="card-title">Esports Teams</h5>
+                        <p class="card-text text-muted">Professional esports organizations and teams operating in Saudi Arabia.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6">
+                <div class="card bg-card h-100">
+                    <div class="card-body text-center">
+                        <div class="mb-3 fs-1 text-gradient">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h5 class="card-title">Educational Institutions</h5>
+                        <p class="card-text text-muted">Universities and training centers offering gaming-related programs.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6">
+                <div class="card bg-card h-100">
+                    <div class="card-body text-center">
+                        <div class="mb-3 fs-1 text-gradient">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <h5 class="card-title">Players & Talent</h5>
+                        <p class="card-text text-muted">Esports athletes, coaches, analysts, and content creators.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6">
+                <div class="card bg-card h-100">
+                    <div class="card-body text-center">
+                        <div class="mb-3 fs-1 text-gradient">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h5 class="card-title">Event Organizers</h5>
+                        <p class="card-text text-muted">Companies and organizations running gaming and esports events in Saudi Arabia.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6">
+                <div class="card bg-card h-100">
+                    <div class="card-body text-center">
+                        <div class="mb-3 fs-1 text-gradient">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h5 class="card-title">Sponsors & Partners</h5>
+                        <p class="card-text text-muted">Brands and companies looking to engage with the gaming and esports audience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call-to-Action Section -->
+<section class="py-5 bg-gradient text-white">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="fw-bold mb-4">Ready to Level Up the Saudi Gaming & Esports Industry?</h2>
+                <p class="lead mb-5">Join the Saudi Gaming & Esports Industry Brain today and gain access to insights, guidance, and strategic recommendations to help you succeed in this rapidly growing sector.</p>
+                <div class="d-grid gap-3 d-md-flex justify-content-md-center">
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-light btn-lg px-5">Go to Dashboard</a>
+                    {% else %}
+                    <a href="{{ url_for('register') }}" class="btn btn-light btn-lg px-5">Get Started</a>
+                    <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg px-5">Login</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

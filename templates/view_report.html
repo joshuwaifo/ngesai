@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="py-4">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0">{{ report.title }}</h1>
+            <div>
+                <button class="btn btn-outline-light me-2 copy-response" data-target="reportContent">
+                    <i class="fas fa-copy me-1"></i> Copy
+                </button>
+                <a href="{{ url_for('report_generator') }}" class="btn btn-primary">
+                    <i class="fas fa-plus me-1"></i> New Report
+                </a>
+            </div>
+        </div>
+        
+        <div class="card bg-card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="badge bg-primary me-2">{{ report.category.replace('_', ' ').title() }}</span>
+                    <span class="text-muted small">Created: {{ report.created_at.strftime('%b %d, %Y, %H:%M') }}</span>
+                </div>
+                <div>
+                    <span class="text-muted small">Last Updated: {{ report.updated_at.strftime('%b %d, %Y, %H:%M') }}</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="report-content" id="reportContent">
+                    {{ report.content|safe|nl2br }}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Report Actions -->
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card bg-card h-100">
+                    <div class="card-header">
+                        <h5 class="mb-0">Share Report</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="shareLink" class="form-label">Report Link</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="shareLink" value="{{ request.url }}" readonly>
+                                <button class="btn btn-outline-secondary" type="button" id="copyLink">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex gap-3 mt-4">
+                            <button class="btn btn-outline-light" disabled>
+                                <i class="fas fa-file-pdf me-1"></i> Export as PDF
+                            </button>
+                            <button class="btn btn-outline-light" disabled>
+                                <i class="fas fa-file-powerpoint me-1"></i> Export as PPT
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4">
+                <div class="card bg-card h-100">
+                    <div class="card-header">
+                        <h5 class="mb-0">Related Reports</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group list-group-flush">
+                            <a href="#" class="list-group-item list-group-item-action bg-transparent border-bottom border-secondary py-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0">Saudi Gaming Market Q2 Analysis</h6>
+                                    <span class="badge bg-primary">Market Analysis</span>
+                                </div>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action bg-transparent border-bottom border-secondary py-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0">Esports Investment Landscape</h6>
+                                    <span class="badge bg-success">Investment</span>
+                                </div>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action bg-transparent py-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0">Game Development Opportunities</h6>
+                                    <span class="badge bg-info">Market Analysis</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle copy link button
+        const copyLinkBtn = document.getElementById('copyLink');
+        const shareLinkInput = document.getElementById('shareLink');
+        
+        copyLinkBtn.addEventListener('click', function() {
+            shareLinkInput.select();
+            navigator.clipboard.writeText(shareLinkInput.value).then(() => {
+                showAlert('Link copied to clipboard!', 'success');
+            }).catch(err => {
+                console.error('Could not copy text: ', err);
+                showAlert('Failed to copy link', 'danger');
+            });
+        });
+    });
+</script>
+{% endblock %}
+
+{% endblock %}

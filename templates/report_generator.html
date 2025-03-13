@@ -1,0 +1,172 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="py-4">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0" data-i18n="report_title">Report Generator</h1>
+        </div>
+        
+        <div class="card bg-card mb-4">
+            <div class="card-body">
+                <p class="mb-0" data-i18n="report_intro">Generate customized reports and presentations for various stakeholders based on your specific needs and focus areas.</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-4 order-lg-2 mb-4">
+                <div class="card bg-card h-100">
+                    <div class="card-header">
+                        <h5 class="mb-0">Report Types</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group list-group-flush">
+                            <button class="list-group-item list-group-item-action bg-transparent border-bottom border-secondary py-3 report-type-btn" data-category="market_analysis" data-title="Saudi Gaming Market Analysis">
+                                <div class="d-flex">
+                                    <div class="bg-primary bg-opacity-10 p-2 rounded-3 me-3">
+                                        <i class="fas fa-chart-pie fs-4 text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1" data-i18n="report_market_analysis">Market Analysis</h6>
+                                        <p class="small text-muted mb-0">Comprehensive analysis of the Saudi gaming market</p>
+                                    </div>
+                                </div>
+                            </button>
+                            
+                            <button class="list-group-item list-group-item-action bg-transparent border-bottom border-secondary py-3 report-type-btn" data-category="investment_proposal" data-title="Gaming Investment Opportunity Overview">
+                                <div class="d-flex">
+                                    <div class="bg-success bg-opacity-10 p-2 rounded-3 me-3">
+                                        <i class="fas fa-money-bill-wave fs-4 text-success"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1" data-i18n="report_investment_proposal">Investment Proposal</h6>
+                                        <p class="small text-muted mb-0">Investment opportunities and projections</p>
+                                    </div>
+                                </div>
+                            </button>
+                            
+                            <button class="list-group-item list-group-item-action bg-transparent border-bottom border-secondary py-3 report-type-btn" data-category="sponsorship_package" data-title="Esports Sponsorship Package">
+                                <div class="d-flex">
+                                    <div class="bg-info bg-opacity-10 p-2 rounded-3 me-3">
+                                        <i class="fas fa-handshake fs-4 text-info"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1" data-i18n="report_sponsorship_package">Sponsorship Package</h6>
+                                        <p class="small text-muted mb-0">Sponsorship opportunities and benefits</p>
+                                    </div>
+                                </div>
+                            </button>
+                            
+                            <button class="list-group-item list-group-item-action bg-transparent py-3 report-type-btn" data-category="performance_dashboard" data-title="Saudi Esports Performance Dashboard">
+                                <div class="d-flex">
+                                    <div class="bg-warning bg-opacity-10 p-2 rounded-3 me-3">
+                                        <i class="fas fa-tachometer-alt fs-4 text-warning"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1" data-i18n="report_performance_dashboard">Performance Dashboard</h6>
+                                        <p class="small text-muted mb-0">Performance metrics and key indicators</p>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-8 order-lg-1">
+                <div class="card bg-card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Generate Custom Report</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{{ url_for('report_generator') }}" id="reportForm">
+                            {{ form.hidden_tag() }}
+                            
+                            <div class="mb-3">
+                                {{ form.title.label(class="form-label", data_i18n="form_report_title") }}
+                                {% if form.title.errors %}
+                                    {{ form.title(class="form-control is-invalid", placeholder="Enter a title for your report") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.title.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.title(class="form-control", placeholder="Enter a title for your report") }}
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form.category.label(class="form-label", data_i18n="form_report_category") }}
+                                {% if form.category.errors %}
+                                    {{ form.category(class="form-select is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.category.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.category(class="form-select") }}
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form.description.label(class="form-label", data_i18n="form_report_description") }}
+                                {% if form.description.errors %}
+                                    {{ form.description(class="form-control is-invalid", rows=5, placeholder="Describe what you want included in the report...", data_i18n_placeholder="report_description_placeholder") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.description.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.description(class="form-control", rows=5, placeholder="Describe what you want included in the report...", data_i18n_placeholder="report_description_placeholder") }}
+                                {% endif %}
+                                <div class="form-text">The more specific your description, the more tailored your report will be.</div>
+                            </div>
+                            
+                            <div class="d-grid">
+                                {{ form.submit(class="btn btn-primary", data_i18n="btn_generate") }}
+                            </div>
+                        </form>
+                        
+                        <!-- Loading Placeholder -->
+                        <div id="loadingPlaceholder" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle report type selection buttons
+        const reportTypeBtns = document.querySelectorAll('.report-type-btn');
+        const titleInput = document.getElementById('title');
+        const categorySelect = document.getElementById('category');
+        
+        reportTypeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const category = this.dataset.category;
+                const title = this.dataset.title;
+                
+                titleInput.value = title;
+                categorySelect.value = category;
+                
+                // Smooth scroll to form
+                document.getElementById('reportForm').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        
+        // Show loading indicator when form is submitted
+        const form = document.getElementById('reportForm');
+        form.addEventListener('submit', function() {
+            showLoading('Generating your report. This may take a moment...');
+        });
+    });
+</script>
+{% endblock %}
+
+{% endblock %}

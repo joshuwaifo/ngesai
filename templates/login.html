@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card bg-card">
+                    <div class="card-header bg-gradient text-white">
+                        <h3 class="mb-0">Login</h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <form method="POST" action="">
+                            {{ form.hidden_tag() }}
+                            
+                            <div class="mb-3">
+                                {{ form.username.label(class="form-label", data_i18n="form_username") }}
+                                {% if form.username.errors %}
+                                    {{ form.username(class="form-control is-invalid", placeholder="Enter your username") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.username.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.username(class="form-control", placeholder="Enter your username") }}
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form.password.label(class="form-label", data_i18n="form_password") }}
+                                <div class="input-group">
+                                    {% if form.password.errors %}
+                                        {{ form.password(class="form-control is-invalid", placeholder="Enter your password") }}
+                                        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password">
+                                            <i class="bi bi-eye-slash"></i>
+                                        </button>
+                                        <div class="invalid-feedback">
+                                            {% for error in form.password.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.password(class="form-control", placeholder="Enter your password") }}
+                                        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password">
+                                            <i class="bi bi-eye-slash"></i>
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3 form-check">
+                                {{ form.remember_me(class="form-check-input") }}
+                                {{ form.remember_me.label(class="form-check-label") }}
+                            </div>
+                            
+                            <div class="d-grid gap-2">
+                                {{ form.submit(class="btn btn-primary", data_i18n="btn_submit") }}
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer bg-card text-center">
+                        <p class="mb-0">Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
