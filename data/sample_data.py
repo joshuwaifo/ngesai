@@ -1,5 +1,5 @@
 """
-Sample data for the Saudi Gaming & Esports Industry Brain.
+Sample data for NGES.ai (National Gaming and Esports Strategy).
 This is used when the database is empty or as fallback when errors occur.
 """
 
