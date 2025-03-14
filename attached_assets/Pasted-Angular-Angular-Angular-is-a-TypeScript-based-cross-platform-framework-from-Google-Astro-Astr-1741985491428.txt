@@ -1,0 +1,168 @@
+Angular
+Angular
+Angular is a TypeScript-based cross-platform framework from Google.
+
+Astro
+Astro
+Astro is a new kind of static site builder for the modern web. Powerful developer experience meets lightweight output.
+
+Brunch
+Brunch
+Brunch is a fast and simple webapp build tool with seamless incremental compilation for rapid development.
+
+Create React App
+React
+Create React App allows you to get going with React in no time.
+
+Docusaurus (v1)
+Docusaurus (v1)
+Docusaurus makes it easy to maintain Open Source documentation websites.
+
+Docusaurus (v2)
+Docusaurus (v2)
+Docusaurus makes it easy to maintain Open Source documentation websites.
+
+Dojo
+Dojo
+Dojo is a modern progressive, TypeScript first framework.
+
+Eleventy
+Eleventy
+11ty is a simpler static site generator written in JavaScript, created to be an alternative to Jekyll.
+
+Ember.js
+Ember.js
+Ember.js helps webapp developers be more productive out of the box.
+
+FastHTML (Experimental)
+FastHTML (Experimental)
+The fastest way to create an HTML app
+
+Gatsby.js
+Gatsby.js
+Gatsby helps developers build blazing fast websites and apps with React.
+
+Gridsome
+Gridsome
+Gridsome is a Vue.js-powered framework for building websites & apps that are fast by default.
+
+Hexo
+Hexo
+Hexo is a fast, simple & powerful blog framework powered by Node.js.
+
+Hugo
+Hugo
+Hugo is the world’s fastest framework for building websites, written in Go.
+
+Hydrogen (v1)
+Hydrogen (v1)
+React framework for headless commerce
+
+Ionic Angular
+Ionic Angular
+Ionic Angular allows you to build mobile PWAs with Angular and the Ionic Framework.
+
+Ionic React
+Ionic React
+Ionic React allows you to build mobile PWAs with React and the Ionic Framework.
+
+Jekyll
+Jekyll
+Jekyll makes it super easy to transform your plain text into static websites and blogs.
+
+Middleman
+Middleman
+Middleman is a static site generator that uses all the shortcuts and tools in modern web development.
+
+Next.js
+Next.js
+Next.js makes you productive with React instantly — whether you want to build static or dynamic sites.
+
+Nuxt.js
+Nuxt.js
+Nuxt.js is the web comprehensive framework that lets you dream big with Vue.js.
+
+Parcel
+Parcel
+Parcel is a zero configuration build tool for the web that scales to projects of any size and complexity.
+
+Polymer
+Polymer
+Polymer is an open-source webapps library from Google, for building using Web Components.
+
+Preact
+Preact
+Preact is a fast 3kB alternative to React with the same modern API.
+
+React Router
+React Router
+Declarative routing for React
+
+RedwoodJS
+RedwoodJS
+RedwoodJS is a full-stack framework for the Jamstack.
+
+Remix
+Remix
+Build Better Websites
+
+Saber
+Saber
+Saber is a framework for building static sites in Vue.js that supports data from any source.
+
+Sanity
+Sanity
+The structured content platform.
+
+Sanity (v3)
+Sanity (v3)
+The structured content platform.
+
+Scully
+Scully
+Scully is a static site generator for Angular.
+
+SolidStart (v0)
+SolidStart (v0)
+Simple and performant reactivity for building user interfaces.
+
+SolidStart (v1)
+SolidStart (v1)
+Simple and performant reactivity for building user interfaces.
+
+Stencil
+Stencil
+Stencil is a powerful toolchain for building Progressive Web Apps and Design Systems.
+
+Storybook
+Storybook
+Frontend workshop for UI development
+
+SvelteKit (v1)
+SvelteKit (v1)
+SvelteKit is a framework for building web applications of all sizes.
+
+UmiJS
+UmiJS
+UmiJS is an extensible enterprise-level React application framework.
+
+Vite
+Vite
+Vite is a new breed of frontend build tool that significantly improves the frontend development experience.
+
+VitePress
+VitePress
+VitePress is VuePress' little brother, built on top of Vite.
+
+Vue.js
+Vue.js
+Vue.js is a versatile JavaScript framework that is as approachable as it is performant.
+
+VuePress
+VuePress
+Vue-powered Static Site Generator
+
+Zola
+Zola
+Everything you need to make a static site engine in one binary.
+

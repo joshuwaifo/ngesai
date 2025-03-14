@@ -1,0 +1,13 @@
+email-validator
+flask
+flask-login
+flask-sqlalchemy
+flask-wtf
+gunicorn
+nltk
+numpy
+psycopg2-binary
+scikit-learn
+sqlalchemy
+werkzeug
+wtforms
